@@ -7,7 +7,7 @@ Starter project template for the [Lucent PHP framework](https://github.com/bluep
 Create a new project with Composer:
 
 ```bash
-composer create-project blueprintau/lucent myapp
+composer create-project blueprintau/lucentapp myapp
 ```
 
 ## Getting started
