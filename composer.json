@@ -10,18 +10,6 @@
         "php",
         "skeleton"
     ],
-    "support": {
-        "issues": "https://github.com/blueprintau/LucentApp/issues",
-        "source": "https://github.com/blueprintau/LucentApp"
-    },
-    "authors": [
-        {
-            "name": "Jack Harris"
-        },
-        {
-            "name": "Mineubob"
-        }
-    ],
     "require": {
         "php": ">=8.4",
         "blueprintau/lucent": "^1.0"
@@ -44,7 +32,13 @@
             "cp .env.example .env"
         ],
         "test": [
-            "phpunit"
+            "@php vendor/bin/phpunit"
+        ],
+        "test:unit": [
+            "@php vendor/bin/phpunit --testsuite \"Unit Tests\""
+        ],
+        "test:coverage": [
+            "@php vendor/bin/phpunit --coverage-text"
         ]
     },
     "config": {
