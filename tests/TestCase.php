@@ -24,16 +24,11 @@ abstract class TestCase extends PHPUnitTestCase
     protected const TEST_DATABASE = '/storage/testing.sqlite';
 
     /**
-     * Backup of the developer's real .env, restored in tearDown().
-     */
-    private ?string $envBackup = null;
-
-    /**
      * Point the application at a throwaway sqlite database and migrate the
      * given models, so tests never touch a developer's real database.
      *
-     * The developer's real .env is backed up first and restored in
-     * tearDown(), so it is never clobbered by a test run.
+     * Uses {@see Application::setEnv()} to switch the in-memory environment
+     * to sqlite, so the developer's real .env file is never clobbered.
      *
      * @param array<class-string<\Lucent\Model\Model>> $models
      */
@@ -45,21 +40,11 @@ abstract class TestCase extends PHPUnitTestCase
             $storage->create(0755);
         }
 
-        $env = new File(DIRECTORY_SEPARATOR . '.env');
-
-        // Back up the developer's real .env so we can restore it later.
-        $this->envBackup = $env->exists() ? $env->getContents() : null;
-
-        $content = "DB_DRIVER=sqlite\nDB_DATABASE=" . self::TEST_DATABASE . "\n";
-
-        $written = $env->exists() ? $env->write($content) : $env->create($content);
-
-        if (!$written) {
-            $this->fail('Failed to write test .env file');
-        }
-
         $app = Application::getInstance();
-        $app->loadEnv();
+        $app->setEnv([
+            'DB_DRIVER' => 'sqlite',
+            'DB_DATABASE' => self::TEST_DATABASE,
+        ]);
 
         // Recreate the database singleton so it picks up the new config.
         Database::reset();
@@ -81,7 +66,7 @@ abstract class TestCase extends PHPUnitTestCase
     }
 
     /**
-     * Remove the throwaway sqlite file and restore the developer's .env.
+     * Remove the throwaway sqlite file.
      */
     protected function tearDown(): void
     {
@@ -89,18 +74,6 @@ abstract class TestCase extends PHPUnitTestCase
 
         if ($database->exists()) {
             $database->delete();
-        }
-
-        // Restore the developer's real .env (or remove the test one if
-        // there was no .env to begin with).
-        $env = new File(DIRECTORY_SEPARATOR . '.env');
-
-        if ($this->envBackup === null) {
-            if ($env->exists()) {
-                $env->delete();
-            }
-        } elseif ($env->exists()) {
-            $env->write($this->envBackup);
         }
 
         parent::tearDown();
