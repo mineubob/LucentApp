@@ -36,6 +36,10 @@ conventions in action. It's safe to delete once you start building.
   placeholder, returning a 404 if missing). Controllers return PSR-7
   `Response` objects.
 
+- **Middleware** — `App/Middleware/RequestLogger.php` shows a PSR-15
+  middleware (logs each request, adds a response header). It's attached to
+  the route group via `->middleware([RequestLogger::class])`.
+
 - **Routes** — `routes/api.php` registers a REST-style group:
 
   ```bash

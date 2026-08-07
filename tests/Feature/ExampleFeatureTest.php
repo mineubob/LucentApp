@@ -60,6 +60,9 @@ class ExampleFeatureTest extends TestCase
 
         $this->assertSame('John Doe', $decoded['user']['name']);
         $this->assertSame('john@example.com', $decoded['user']['email']);
+
+        // The RequestLogger middleware should have added this header.
+        $this->assertSame('RequestLogger', $response->getHeaderLine('X-Lucent-Middleware'));
     }
 
     public function test_show_user_returns_404_when_not_found(): void
