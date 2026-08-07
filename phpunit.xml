@@ -8,7 +8,15 @@
         <testsuite name="Unit Tests">
             <directory>tests/Unit</directory>
         </testsuite>
+        <testsuite name="Feature Tests">
+            <directory>tests/Feature</directory>
+        </testsuite>
     </testsuites>
+
+    <php>
+        <env name="DB_DRIVER" value="sqlite"/>
+        <env name="DB_DATABASE" value="/storage/testing.sqlite"/>
+    </php>
 
     <source>
         <include>

@@ -31,11 +31,17 @@
         "post-create-project-cmd": [
             "cp .env.example .env"
         ],
+        "serve": [
+            "@php vendor/bin/lucent serve"
+        ],
         "test": [
             "@php vendor/bin/phpunit"
         ],
         "test:unit": [
             "@php vendor/bin/phpunit --testsuite \"Unit Tests\""
+        ],
+        "test:feature": [
+            "@php vendor/bin/phpunit --testsuite \"Feature Tests\""
         ],
         "test:coverage": [
             "@php vendor/bin/phpunit --coverage-text"
