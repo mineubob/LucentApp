@@ -1,0 +1,9 @@
+# Normalise line endings for text files
+* text=auto eol=lf
+
+# Better diff rendering for common file types
+*.css diff=css
+*.html diff=html
+*.md diff=markdown
+*.php diff=php
+*.json diff=json

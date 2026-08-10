@@ -1,0 +1,27 @@
+# Dependencies — Composer
+/vendor/
+
+# Environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# Runtime artifacts — app-generated content
+/logs/*
+!/logs/.gitkeep
+/storage/*
+!/storage/.gitkeep
+
+# Caches & lock backups
+.phpunit.cache/
+composer.lock.bak
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
