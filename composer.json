@@ -28,8 +28,8 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "cp .env.example .env"
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "serve": [
             "@php vendor/bin/lucent serve"
