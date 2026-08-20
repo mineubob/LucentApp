@@ -43,8 +43,8 @@ conventions in action. It's safe to delete once you start building.
 - **Routes** — `routes/api.php` registers a REST-style group:
 
   ```bash
-  curl -X POST http://localhost:8000/user/create -d 'name=Jane&email=jane@example.com'
-  curl http://localhost:8000/user/1
+  curl -X POST http://localhost:8080/user/create -d 'name=Jane&email=jane@example.com'
+  curl http://localhost:8080/user/1
   ```
 
 - **CLI command** — `App/Commands/HelloCommand.php` registered in
