@@ -26,11 +26,10 @@ class ExampleFeatureTest extends TestCase
 
     public function test_create_user(): void
     {
-        $request = (new ServerRequest('POST', Uri::fromString('/user/create')))
-            ->withParsedBody([
-                'name' => 'Jane Doe',
-                'email' => 'jane@example.com',
-            ]);
+        $request = ServerRequest::create('POST', Uri::fromString('/user/create'), body: [
+            'name' => 'Jane Doe',
+            'email' => 'jane@example.com',
+        ]);
 
         $response = App::handleHttpRequest($request);
 
@@ -50,7 +49,7 @@ class ExampleFeatureTest extends TestCase
         $user = new User('John Doe', 'john@example.com');
         $this->assertTrue($user->create());
 
-        $request = new ServerRequest('GET', Uri::fromString('/user/' . $user->getId()));
+        $request = ServerRequest::create('GET', Uri::fromString('/user/' . $user->getId()));
 
         $response = App::handleHttpRequest($request);
 
@@ -67,7 +66,7 @@ class ExampleFeatureTest extends TestCase
 
     public function test_show_user_returns_404_when_not_found(): void
     {
-        $request = new ServerRequest('GET', Uri::fromString('/user/99999'));
+        $request = ServerRequest::create('GET', Uri::fromString('/user/99999'));
 
         $response = App::handleHttpRequest($request);
 
